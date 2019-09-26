@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 import cv2
 
-train_dir = os.path.join("C:/Users/moham/Downloads/superhero-master/Superhero_Train") #the directory where the training images are saved.
+train_dir = os.path.join("D:\Data_super_hero\Superhero_Train") #the directory where the training images are saved.
 CATEGORIES = ["AntMan", "Aquaman", "Avengers", "Batman", "Black Panther", "Captain America", "Catwoman", "Ghost Rider", "Hulk", "Iron Man", "Spiderman", "Superman"]
 # we will be classifying our images into 12 categories for 12 superhers , there will be a graph to help with the identification.
 for category in CATEGORIES:
@@ -49,16 +49,7 @@ for features, label in training_data:
 
 x = np.array(x).reshape(-1, 50, 50, 1) # a needed step to reshape all data again into 50x50 pixels and in gray scale, because keras doesnt support it automatically yet.
 
-import pickle  #Pickling is a way to convert a python object (list, dict, etc.) into a character stream. 
-
-pickle_out = open("x.pickle", "wb")
-pickle.dump(x, pickle_out)
-pickle_out.close()
-
-pickle_out = open("y.pickle", "wb")
-pickle.dump(y, pickle_out)
-pickle_out.close()
-
-pickle_in = open("x.pickle", "rb")
-x = pickle.load(pickle_in)
+#saving the x features as an array in a binary file in .npy format.
+np.save('features.npy',x)
+x = np.load('features.npy')
 
